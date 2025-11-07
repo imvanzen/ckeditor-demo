@@ -73,9 +73,8 @@ import {
   TextTransformation,
   TodoList,
   Underline,
-  type EditorConfig,
-  Editor,
 } from "ckeditor5";
+import type { EditorConfig } from "ckeditor5";
 import {
   CaseChange,
   Comments,
@@ -123,16 +122,16 @@ const CLOUD_SERVICES_TOKEN_URL =
 const CLOUD_SERVICES_WEBSOCKET_URL = "wss://hr7dzn9s9x8n.cke-cs.com/ws";
 
 export default function App() {
-  const editorPresenceRef = useRef(null);
+  const editorPresenceRef = useRef<HTMLElement | null>(null);
   const editorContainerRef = useRef(null);
-  const editorMenuBarRef = useRef(null);
+  const editorMenuBarRef = useRef<HTMLElement | null>(null);
   const editorToolbarRef = useRef<HTMLElement | null>(null);
-  const editorOutlineRef = useRef(null);
-  const editorRef = useRef(null);
-  const editorAnnotationsRef = useRef(null);
-  const editorRevisionHistoryRef = useRef(null);
-  const editorRevisionHistoryEditorRef = useRef(null);
-  const editorRevisionHistorySidebarRef = useRef(null);
+  const editorOutlineRef = useRef<HTMLElement | null>(null);
+  const editorRef = useRef<HTMLElement | null>(null);
+  const editorAnnotationsRef = useRef<HTMLElement | null>(null);
+  const editorRevisionHistoryRef = useRef<HTMLElement | null>(null);
+  const editorRevisionHistoryEditorRef = useRef<HTMLElement | null>(null);
+  const editorRevisionHistorySidebarRef = useRef<HTMLElement | null>(null);
   const [isLayoutReady, setIsLayoutReady] = useState(false);
 
   useEffect(() => {
@@ -530,14 +529,17 @@ export default function App() {
 
   return (
     <div className="main-container">
-      <div className="presence" ref={editorPresenceRef}></div>
+      <div
+        className="presence"
+        ref={editorPresenceRef as RefObject<HTMLDivElement>}
+      ></div>
       <div
         className="editor-container editor-container_document-editor editor-container_include-outline editor-container_include-annotations editor-container_include-pagination editor-container_include-fullscreen"
         ref={editorContainerRef}
       >
         <div
           className="editor-container__menu-bar"
-          ref={editorMenuBarRef}
+          ref={editorMenuBarRef as RefObject<HTMLDivElement>}
         ></div>
         <div
           className="editor-container__toolbar"
@@ -546,27 +548,27 @@ export default function App() {
         <div className="editor-container__editor-wrapper">
           <div
             className="editor-container__sidebar"
-            ref={editorOutlineRef}
+            ref={editorOutlineRef as RefObject<HTMLDivElement>}
           ></div>
           <div className="editor-container__editor">
-            <div ref={editorRef}>
+            <div ref={editorRef as RefObject<HTMLDivElement>}>
               {editorConfig && (
                 <CKEditor
                   onReady={(editor) => {
                     editorToolbarRef.current?.appendChild(
-                      editor.ui.view.toolbar.element
+                      editor.ui.view.toolbar.element as Node
                     );
                     editorMenuBarRef.current?.appendChild(
-                      editor.ui.view.menuBarView.element
+                      editor.ui.view.menuBarView.element as Node
                     );
                   }}
                   onAfterDestroy={() => {
-                    Array.from(editorToolbarRef.current?.children).forEach(
-                      (child) => child.remove()
-                    );
-                    Array.from(editorMenuBarRef.current?.children).forEach(
-                      (child) => child.remove()
-                    );
+                    Array.from(
+                      editorToolbarRef.current?.children || []
+                    ).forEach((child) => child.remove());
+                    Array.from(
+                      editorMenuBarRef.current?.children || []
+                    ).forEach((child) => child.remove());
                   }}
                   editor={DecoupledEditor}
                   config={editorConfig as unknown as EditorConfig}
@@ -576,19 +578,22 @@ export default function App() {
           </div>
           <div
             className="editor-container__sidebar"
-            ref={editorAnnotationsRef}
+            ref={editorAnnotationsRef as RefObject<HTMLDivElement>}
           ></div>
         </div>
       </div>
-      <div className="revision-history" ref={editorRevisionHistoryRef}>
+      <div
+        className="revision-history"
+        ref={editorRevisionHistoryRef as RefObject<HTMLDivElement>}
+      >
         <div className="revision-history__wrapper">
           <div
             className="revision-history__editor"
-            ref={editorRevisionHistoryEditorRef}
+            ref={editorRevisionHistoryEditorRef as RefObject<HTMLDivElement>}
           ></div>
           <div
             className="revision-history__sidebar"
-            ref={editorRevisionHistorySidebarRef}
+            ref={editorRevisionHistorySidebarRef as RefObject<HTMLDivElement>}
           ></div>
         </div>
       </div>

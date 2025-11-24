@@ -108,14 +108,13 @@ import "ckeditor5-premium-features/ckeditor5-premium-features.css";
 
 import "./App.css";
 
-const LICENSE_KEY =
-  "eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE3NjM1OTY3OTksImp0aSI6IjFlNjQ2OGRhLTQ3ZDktNDZlMC1hYWU5LThmZTZjZDg2ZTgxZSIsInVzYWdlRW5kcG9pbnQiOiJodHRwczovL3Byb3h5LWV2ZW50LmNrZWRpdG9yLmNvbSIsImRpc3RyaWJ1dGlvbkNoYW5uZWwiOlsiY2xvdWQiLCJkcnVwYWwiLCJzaCJdLCJ3aGl0ZUxhYmVsIjp0cnVlLCJsaWNlbnNlVHlwZSI6InRyaWFsIiwiZmVhdHVyZXMiOlsiKiJdLCJ2YyI6IjVlM2UyMGNiIn0.KnvOUd6FtDMMtfJr4hv8GSzogAzraq7HvLZ1jQLkO_6yuQnRca2uA9Hf519q--QV_4xO0bmhmRDSiT2zY_mXsA";
+const LICENSE_KEY = import.meta.env.VITE_CKEDITOR_LICENSE_KEY;
 
 /**
  * Unique ID that will be used to identify this document. E.g. you may use ID taken from your database.
  * Read more: https://ckeditor.com/docs/ckeditor5/latest/api/module_collaboration-core_config-RealTimeCollaborationConfig.html
  */
-const DOCUMENT_ID = "<YOUR_DOCUMENT_ID>";
+const DOCUMENT_ID = import.meta.env.VITE_DOCUMENT_ID;
 
 const CLOUD_SERVICES_TOKEN_URL =
   "https://hr7dzn9s9x8n.cke-cs.com/token/dev/b506ecdf39fa7aeec8c0427c139a3780671820e2cc29731abd7373070fad?limit=10";
@@ -188,6 +187,8 @@ export default function App() {
             "todoList",
             "outdent",
             "indent",
+            "|",
+            "pageBreak",
           ],
           shouldNotGroupWhenFull: false,
         },
@@ -481,13 +482,13 @@ export default function App() {
           /* Read more: https://ckeditor.com/docs/ckeditor5/latest/features/merge-fields.html#configuration */
         },
         pagination: {
-          pageWidth: "21cm",
-          pageHeight: "29.7cm",
+          pageWidth: "210mm",
+          pageHeight: "297mm",
           pageMargins: {
             top: "20mm",
-            bottom: "20mm",
-            right: "12mm",
-            left: "12mm",
+            right: "20mm",
+            bottom: "25mm",
+            left: "20mm",
           },
         },
         placeholder: "Type or paste your content here!",

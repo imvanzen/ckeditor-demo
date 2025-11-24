@@ -159,19 +159,19 @@ export default function App() {
       footers: {
         default: {
           html: '<p>Page <span class="pageNumber"></span> of <span class="totalPages"></span></p>',
-          css: "p { margin: 0; padding: 0; text-align: center; font-size: 10px; color: #666; }",
+          css: "p { margin: 5px 0; padding: 5px 0; text-align: center; font-size: 10px; color: #666; border-top: 1px solid #ddd; }",
         },
         first: {
           html: "<p>First Page Footer</p>",
-          css: "p { margin: 0; padding: 0; text-align: center; font-size: 10px; color: #333; }",
+          css: "p { margin: 5px 0; padding: 5px 0; text-align: center; font-size: 10px; color: #333; border-top: 1px solid #ddd; }",
         },
         odd: {
           html: '<p>Page <span class="pageNumber"></span></p>',
-          css: "p { margin: 0; padding: 0; text-align: left; font-size: 10px; color: #666; }",
+          css: "p { margin: 5px 0; padding: 5px 0; text-align: left; font-size: 10px; color: #666; border-top: 1px solid #ddd; }",
         },
         even: {
           html: '<p>Page <span class="pageNumber"></span></p>',
-          css: "p { margin: 0; padding: 0; text-align: right; font-size: 10px; color: #666; }",
+          css: "p { margin: 5px 0; padding: 5px 0; text-align: right; font-size: 10px; color: #666; border-top: 1px solid #ddd; }",
         },
       },
     });
@@ -189,6 +189,12 @@ export default function App() {
 
     return {
       editorConfig: {
+        header: {
+          content: headerFooterConfig.headers?.default?.html,
+        },
+        footer: {
+          content: headerFooterConfig.footers?.default?.html,
+        },
         toolbar: {
           items: [
             "undo",
@@ -379,7 +385,7 @@ export default function App() {
           converterOptions: {
             format: "A4",
             margin_top: "20mm",
-            margin_bottom: "20mm",
+            margin_bottom: "25mm", // Increased to ensure footer is visible
             margin_right: "12mm",
             margin_left: "12mm",
             page_orientation: "portrait",
@@ -402,7 +408,7 @@ export default function App() {
               size: "A4",
               margins: {
                 top: "20mm",
-                bottom: "20mm",
+                bottom: "25mm", // Increased to ensure footer is visible
                 right: "12mm",
                 left: "12mm",
               },

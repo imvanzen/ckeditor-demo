@@ -5,6 +5,9 @@
 
 import { useState, useEffect, useRef, useMemo } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
+import HeaderFooterConfigurator from "./components/HeaderFooterConfigurator";
+import type { ExportWordHeadersFootersConfig } from "./types/headerFooter";
+import HeaderFooterPlugin from "./plugins/HeaderFooterPlugin";
 import {
   DecoupledEditor,
   Autosave,
@@ -132,6 +135,46 @@ export default function App() {
   const editorRevisionHistoryEditorRef = useRef<HTMLDivElement | null>(null);
   const editorRevisionHistorySidebarRef = useRef<HTMLDivElement | null>(null);
   const [isLayoutReady, setIsLayoutReady] = useState(false);
+  const [showHeaderFooterConfig, setShowHeaderFooterConfig] = useState(false);
+  const [headerFooterConfig, setHeaderFooterConfig] =
+    useState<ExportWordHeadersFootersConfig>({
+      headers: {
+        default: {
+          html: '<p style="text-align: center; font-size: 10px; color: #666;">Document Header</p>',
+          css: "p { margin: 0; padding: 0; }",
+        },
+        first: {
+          html: '<p style="text-align: center; font-size: 10px; color: #333; font-weight: bold;">Title Page Header</p>',
+          css: "p { margin: 0; padding: 0; }",
+        },
+        odd: {
+          html: '<p style="text-align: left; font-size: 10px; color: #666;">Odd Page Header</p>',
+          css: "p { margin: 0; padding: 0; }",
+        },
+        even: {
+          html: '<p style="text-align: right; font-size: 10px; color: #666;">Even Page Header</p>',
+          css: "p { margin: 0; padding: 0; }",
+        },
+      },
+      footers: {
+        default: {
+          html: '<p style="text-align: center; font-size: 10px; color: #666;">Page <span class="pageNumber"></span> of <span class="totalPages"></span></p>',
+          css: "p { margin: 0; padding: 0; }",
+        },
+        first: {
+          html: '<p style="text-align: center; font-size: 10px; color: #333;">First Page Footer</p>',
+          css: "p { margin: 0; padding: 0; }",
+        },
+        odd: {
+          html: '<p style="text-align: left; font-size: 10px; color: #666;">Page <span class="pageNumber"></span></p>',
+          css: "p { margin: 0; padding: 0; }",
+        },
+        even: {
+          html: '<p style="text-align: right; font-size: 10px; color: #666;">Page <span class="pageNumber"></span></p>',
+          css: "p { margin: 0; padding: 0; }",
+        },
+      },
+    });
 
   useEffect(() => {
     setIsLayoutReady(true);
@@ -160,6 +203,8 @@ export default function App() {
             "|",
             "insertMergeField",
             "previewMergeFields",
+            "|",
+            "headerFooter",
             "|",
             "formatPainter",
             "|",
@@ -200,6 +245,7 @@ export default function App() {
           Bold,
           Bookmark,
           CaseChange,
+          HeaderFooterPlugin,
           CKBox,
           CKBoxImageEdit,
           CloudServices,
@@ -360,6 +406,7 @@ export default function App() {
                 left: "12mm",
               },
             },
+            config: headerFooterConfig,
           },
         },
         fontFamily: {
@@ -524,7 +571,7 @@ export default function App() {
         },
       },
     };
-  }, [isLayoutReady]);
+  }, [isLayoutReady, headerFooterConfig]);
 
   return (
     <div className="main-container">
@@ -554,6 +601,24 @@ export default function App() {
                     editorMenuBarRef.current?.appendChild(
                       editor.ui.view.menuBarView.element as Node
                     );
+
+                    // Listen for the custom event from the HeaderFooter plugin
+                    const handleOpenConfig = () => {
+                      setShowHeaderFooterConfig(true);
+                    };
+
+                    document.addEventListener(
+                      "openHeaderFooterConfig",
+                      handleOpenConfig
+                    );
+
+                    // Cleanup on destroy
+                    editor.on("destroy", () => {
+                      document.removeEventListener(
+                        "openHeaderFooterConfig",
+                        handleOpenConfig
+                      );
+                    });
                   }}
                   onAfterDestroy={() => {
                     Array.from(
@@ -584,9 +649,20 @@ export default function App() {
           <div
             className="revision-history__sidebar"
             ref={editorRevisionHistorySidebarRef}
-          ></div>
+          >
+            {" "}
+          </div>
         </div>
       </div>
+      {showHeaderFooterConfig && (
+        <HeaderFooterConfigurator
+          config={headerFooterConfig}
+          onSave={(config) => {
+            setHeaderFooterConfig(config);
+          }}
+          onClose={() => setShowHeaderFooterConfig(false)}
+        />
+      )}
     </div>
   );
 }

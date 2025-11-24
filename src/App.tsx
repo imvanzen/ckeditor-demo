@@ -189,12 +189,6 @@ export default function App() {
 
     return {
       editorConfig: {
-        header: {
-          content: headerFooterConfig.headers?.default?.html,
-        },
-        footer: {
-          content: headerFooterConfig.footers?.default?.html,
-        },
         toolbar: {
           items: [
             "undo",
@@ -390,7 +384,7 @@ export default function App() {
             margin_left: "12mm",
             page_orientation: "portrait",
           },
-          config: headerFooterConfig,
+          ...headerFooterConfig,
         },
         exportWord: {
           stylesheets: [
@@ -413,7 +407,7 @@ export default function App() {
                 left: "12mm",
               },
             },
-            config: headerFooterConfig,
+            ...headerFooterConfig,
           },
         },
         fontFamily: {

@@ -1,73 +1,65 @@
-# React + TypeScript + Vite
+# CKEditor 5 Demo
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![Netlify Status](https://api.netlify.com/api/v1/badges/bf6a9232-55fd-4f61-8b95-3eb8f61b41ee/deploy-status)](https://app.netlify.com/projects/ephemeral-cranachan-d091a0/deploys)
 
-Currently, two official plugins are available:
+A demonstration project showcasing CKEditor 5 with React, TypeScript, and Vite. This project includes premium features such as real-time collaborative editing, track changes, comments, revision history, and document export capabilities.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Description
 
-## React Compiler
+This demo application features a fully configured CKEditor 5 document editor with:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Rich text editing** with comprehensive formatting options
+- **Real-time collaboration** with presence indicators and live editing
+- **Track changes** and revision history
+- **Comments and annotations**
+- **Document export** to PDF and Word formats
+- **Advanced features** including merge fields, templates, format painter, and more
 
-## Expanding the ESLint configuration
+## Setup
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1. Install dependencies:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Create a `.env` file in the root directory with the following environment variables:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```env
+VITE_CKEDITOR_LICENSE_KEY=your_license_key_here
+VITE_DOCUMENT_ID=your_document_id_here
+VITE_CLOUD_SERVICES_TOKEN_URL=your_token_url_here
+VITE_CLOUD_SERVICES_WEBSOCKET_URL=your_websocket_url_here
 ```
+
+3. Configure your CKEditor Cloud Services endpoints for collaboration features to work properly.
+
+## Development
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Build for production:
+
+```bash
+npm run build
+```
+
+Preview the production build:
+
+```bash
+npm run preview
+```
+
+Lint the codebase:
+
+```bash
+npm run lint
+```
+
+## Contact
+
+For questions, issues, or contributions, please refer to the [CKEditor documentation](https://ckeditor.com/docs/ckeditor5/latest/) or open an issue in the repository.

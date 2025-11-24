@@ -140,38 +140,38 @@ export default function App() {
     useState<ExportWordHeadersFootersConfig>({
       headers: {
         default: {
-          html: '<p style="text-align: center; font-size: 10px; color: #666;">Document Header</p>',
-          css: "p { margin: 0; padding: 0; }",
+          html: "<p>Document Header</p>",
+          css: "p { margin: 0; padding: 0; text-align: center; font-size: 10px; color: #666; }",
         },
         first: {
-          html: '<p style="text-align: center; font-size: 10px; color: #333; font-weight: bold;">Title Page Header</p>',
-          css: "p { margin: 0; padding: 0; }",
+          html: "<p>Title Page Header</p>",
+          css: "p { margin: 0; padding: 0; text-align: center; font-size: 10px; color: #333; font-weight: bold; }",
         },
         odd: {
-          html: '<p style="text-align: left; font-size: 10px; color: #666;">Odd Page Header</p>',
-          css: "p { margin: 0; padding: 0; }",
+          html: "<p>Odd Page Header</p>",
+          css: "p { margin: 0; padding: 0; text-align: left; font-size: 10px; color: #666; }",
         },
         even: {
-          html: '<p style="text-align: right; font-size: 10px; color: #666;">Even Page Header</p>',
-          css: "p { margin: 0; padding: 0; }",
+          html: "<p>Even Page Header</p>",
+          css: "p { margin: 0; padding: 0; text-align: right; font-size: 10px; color: #666; }",
         },
       },
       footers: {
         default: {
-          html: '<p style="text-align: center; font-size: 10px; color: #666;">Page <span class="pageNumber"></span> of <span class="totalPages"></span></p>',
-          css: "p { margin: 0; padding: 0; }",
+          html: '<p>Page <span class="pageNumber"></span> of <span class="totalPages"></span></p>',
+          css: "p { margin: 0; padding: 0; text-align: center; font-size: 10px; color: #666; }",
         },
         first: {
-          html: '<p style="text-align: center; font-size: 10px; color: #333;">First Page Footer</p>',
-          css: "p { margin: 0; padding: 0; }",
+          html: "<p>First Page Footer</p>",
+          css: "p { margin: 0; padding: 0; text-align: center; font-size: 10px; color: #333; }",
         },
         odd: {
-          html: '<p style="text-align: left; font-size: 10px; color: #666;">Page <span class="pageNumber"></span></p>',
-          css: "p { margin: 0; padding: 0; }",
+          html: '<p>Page <span class="pageNumber"></span></p>',
+          css: "p { margin: 0; padding: 0; text-align: left; font-size: 10px; color: #666; }",
         },
         even: {
-          html: '<p style="text-align: right; font-size: 10px; color: #666;">Page <span class="pageNumber"></span></p>',
-          css: "p { margin: 0; padding: 0; }",
+          html: '<p>Page <span class="pageNumber"></span></p>',
+          css: "p { margin: 0; padding: 0; text-align: right; font-size: 10px; color: #666; }",
         },
       },
     });
@@ -384,6 +384,7 @@ export default function App() {
             margin_left: "12mm",
             page_orientation: "portrait",
           },
+          config: headerFooterConfig,
         },
         exportWord: {
           stylesheets: [

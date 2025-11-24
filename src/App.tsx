@@ -1,61 +1,63 @@
 /**
  * This configuration was generated using the CKEditor 5 Builder. You can modify it anytime using this link:
- * https://ckeditor.com/ckeditor-5/builder/?redirect=portal#installation/NoBgNARATAdAHDAjBSi5QOyJGgzAFgFZ8BOQ3XANkVMMSnwwzkpMRo0o10Vwyh6JybKCggBTAHYpcYYIjALwCpQF1IlACYBjTSFwAjCKqA==
+ * https://ckeditor.com/ckeditor-5/builder/?redirect=portal#installation/NoBgNARATAdAHDKFIEY5QOwpGgzAFgFZ8BOQ3XANhVMJSnwwzkpJRo0o1xVwyh4pybJJACmAO2S4wwFGHnh5igLqRKhSgGMAZiAwQVQA
  */
 
-import { useState, useEffect, useRef, useMemo, type RefObject } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import {
   DecoupledEditor,
-  Alignment,
-  AutoImage,
-  Autoformat,
-  AutoLink,
   Autosave,
-  BalloonToolbar,
+  Essentials,
+  Paragraph,
+  Autoformat,
+  TextTransformation,
+  LinkImage,
+  Link,
   ImageBlock,
+  ImageToolbar,
   Bold,
   Bookmark,
   CKBox,
-  CKBoxImageEdit,
   CloudServices,
-  Code,
+  ImageUpload,
+  ImageInsert,
+  ImageInsertViaUrl,
+  AutoImage,
+  PictureEditing,
+  CKBoxImageEdit,
+  TableColumnResize,
+  Table,
+  TableToolbar,
+  Heading,
   Emoji,
-  Essentials,
+  Mention,
+  PasteFromOffice,
   FindAndReplace,
   FontBackgroundColor,
   FontColor,
   FontFamily,
   FontSize,
   Fullscreen,
-  Heading,
   HorizontalLine,
+  ImageTextAlternative,
   ImageCaption,
-  ImageEditing,
-  ImageInsert,
-  ImageInsertViaUrl,
   ImageResize,
   ImageStyle,
-  ImageTextAlternative,
-  ImageToolbar,
-  ImageUpload,
-  ImageUtils,
-  ImageInline,
   Indent,
   IndentBlock,
+  Code,
+  ImageInline,
   Italic,
-  Link,
-  LinkImage,
-  List,
+  AutoLink,
   ListProperties,
-  Mention,
+  List,
+  ImageUtils,
+  ImageEditing,
   PageBreak,
-  Paragraph,
-  PasteFromOffice,
-  PictureEditing,
   RemoveFormat,
-  SpecialCharacters,
   SpecialCharactersArrows,
+  SpecialCharacters,
   SpecialCharactersCurrency,
   SpecialCharactersEssentials,
   SpecialCharactersLatin,
@@ -64,21 +66,19 @@ import {
   Strikethrough,
   Subscript,
   Superscript,
-  Table,
   TableCaption,
   TableCellProperties,
-  TableColumnResize,
   TableProperties,
-  TableToolbar,
-  TextTransformation,
+  Alignment,
   TodoList,
   Underline,
+  BalloonToolbar,
+  type EditorConfig,
 } from "ckeditor5";
-import type { EditorConfig } from "ckeditor5";
 import {
   CaseChange,
-  Comments,
   DocumentOutline,
+  PasteFromOfficeEnhanced,
   ExportPdf,
   ExportWord,
   Footnotes,
@@ -88,19 +88,19 @@ import {
   MergeFields,
   MultiLevelList,
   Pagination,
-  PasteFromOfficeEnhanced,
-  PresenceList,
   RealTimeCollaborativeComments,
   RealTimeCollaborativeEditing,
+  PresenceList,
+  Comments,
   RealTimeCollaborativeRevisionHistory,
-  RealTimeCollaborativeTrackChanges,
   RevisionHistory,
-  SlashCommand,
-  TableOfContents,
-  Template,
+  RealTimeCollaborativeTrackChanges,
   TrackChanges,
   TrackChangesData,
   TrackChangesPreview,
+  SlashCommand,
+  TableOfContents,
+  Template,
 } from "ckeditor5-premium-features";
 
 import "ckeditor5/ckeditor5.css";
@@ -116,21 +116,21 @@ const LICENSE_KEY = import.meta.env.VITE_CKEDITOR_LICENSE_KEY;
  */
 const DOCUMENT_ID = import.meta.env.VITE_DOCUMENT_ID;
 
-const CLOUD_SERVICES_TOKEN_URL =
-  "https://hr7dzn9s9x8n.cke-cs.com/token/dev/b506ecdf39fa7aeec8c0427c139a3780671820e2cc29731abd7373070fad?limit=10";
-const CLOUD_SERVICES_WEBSOCKET_URL = "wss://hr7dzn9s9x8n.cke-cs.com/ws";
+const CLOUD_SERVICES_TOKEN_URL = import.meta.env.VITE_CLOUD_SERVICES_TOKEN_URL;
+const CLOUD_SERVICES_WEBSOCKET_URL = import.meta.env
+  .VITE_CLOUD_SERVICES_WEBSOCKET_URL;
 
 export default function App() {
-  const editorPresenceRef = useRef<HTMLElement | null>(null);
-  const editorContainerRef = useRef(null);
-  const editorMenuBarRef = useRef<HTMLElement | null>(null);
-  const editorToolbarRef = useRef<HTMLElement | null>(null);
-  const editorOutlineRef = useRef<HTMLElement | null>(null);
-  const editorRef = useRef<HTMLElement | null>(null);
-  const editorAnnotationsRef = useRef<HTMLElement | null>(null);
-  const editorRevisionHistoryRef = useRef<HTMLElement | null>(null);
-  const editorRevisionHistoryEditorRef = useRef<HTMLElement | null>(null);
-  const editorRevisionHistorySidebarRef = useRef<HTMLElement | null>(null);
+  const editorPresenceRef = useRef<HTMLDivElement | null>(null);
+  const editorContainerRef = useRef<HTMLDivElement | null>(null);
+  const editorMenuBarRef = useRef<HTMLDivElement | null>(null);
+  const editorToolbarRef = useRef<HTMLDivElement | null>(null);
+  const editorOutlineRef = useRef<HTMLDivElement | null>(null);
+  const editorRef = useRef<HTMLDivElement | null>(null);
+  const editorAnnotationsRef = useRef<HTMLDivElement | null>(null);
+  const editorRevisionHistoryRef = useRef<HTMLDivElement | null>(null);
+  const editorRevisionHistoryEditorRef = useRef<HTMLDivElement | null>(null);
+  const editorRevisionHistorySidebarRef = useRef<HTMLDivElement | null>(null);
   const [isLayoutReady, setIsLayoutReady] = useState(false);
 
   useEffect(() => {
@@ -187,8 +187,6 @@ export default function App() {
             "todoList",
             "outdent",
             "indent",
-            "|",
-            "pageBreak",
           ],
           shouldNotGroupWhenFull: false,
         },
@@ -482,13 +480,13 @@ export default function App() {
           /* Read more: https://ckeditor.com/docs/ckeditor5/latest/features/merge-fields.html#configuration */
         },
         pagination: {
-          pageWidth: "210mm",
-          pageHeight: "297mm",
+          pageWidth: "21cm",
+          pageHeight: "29.7cm",
           pageMargins: {
             top: "20mm",
-            right: "20mm",
-            bottom: "25mm",
-            left: "20mm",
+            bottom: "20mm",
+            right: "12mm",
+            left: "12mm",
           },
         },
         placeholder: "Type or paste your content here!",
@@ -530,29 +528,23 @@ export default function App() {
 
   return (
     <div className="main-container">
-      <div
-        className="presence"
-        ref={editorPresenceRef as RefObject<HTMLDivElement>}
-      ></div>
+      <div className="presence" ref={editorPresenceRef}></div>
       <div
         className="editor-container editor-container_document-editor editor-container_include-outline editor-container_include-annotations editor-container_include-pagination editor-container_include-fullscreen"
         ref={editorContainerRef}
       >
         <div
           className="editor-container__menu-bar"
-          ref={editorMenuBarRef as RefObject<HTMLDivElement>}
+          ref={editorMenuBarRef}
         ></div>
-        <div
-          className="editor-container__toolbar"
-          ref={editorToolbarRef as RefObject<HTMLDivElement>}
-        ></div>
+        <div className="editor-container__toolbar" ref={editorToolbarRef}></div>
         <div className="editor-container__editor-wrapper">
           <div
             className="editor-container__sidebar"
-            ref={editorOutlineRef as RefObject<HTMLDivElement>}
+            ref={editorOutlineRef}
           ></div>
           <div className="editor-container__editor">
-            <div ref={editorRef as RefObject<HTMLDivElement>}>
+            <div ref={editorRef}>
               {editorConfig && (
                 <CKEditor
                   onReady={(editor) => {
@@ -572,29 +564,26 @@ export default function App() {
                     ).forEach((child) => child.remove());
                   }}
                   editor={DecoupledEditor}
-                  config={editorConfig as unknown as EditorConfig}
+                  config={editorConfig as EditorConfig}
                 />
               )}
             </div>
           </div>
           <div
             className="editor-container__sidebar"
-            ref={editorAnnotationsRef as RefObject<HTMLDivElement>}
+            ref={editorAnnotationsRef}
           ></div>
         </div>
       </div>
-      <div
-        className="revision-history"
-        ref={editorRevisionHistoryRef as RefObject<HTMLDivElement>}
-      >
+      <div className="revision-history" ref={editorRevisionHistoryRef}>
         <div className="revision-history__wrapper">
           <div
             className="revision-history__editor"
-            ref={editorRevisionHistoryEditorRef as RefObject<HTMLDivElement>}
+            ref={editorRevisionHistoryEditorRef}
           ></div>
           <div
             className="revision-history__sidebar"
-            ref={editorRevisionHistorySidebarRef as RefObject<HTMLDivElement>}
+            ref={editorRevisionHistorySidebarRef}
           ></div>
         </div>
       </div>

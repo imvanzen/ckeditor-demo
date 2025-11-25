@@ -1,6 +1,6 @@
 # CKEditor 5 Demo
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/bf6a9232-55fd-4f61-8b95-3eb8f61b41ee/deploy-status)](https://app.netlify.com/projects/ephemeral-cranachan-d091a0/deploys)
+[![Vercel](https://vercelbadge.vercel.app/api/masterborn/ckeditor-demo)](https://vercel.com/masterborn/ckeditor-demo)
 
 A demonstration project showcasing CKEditor 5 with React, TypeScript, and Vite. This project includes premium features such as real-time collaborative editing, track changes, comments, revision history, and document export capabilities.
 
@@ -12,7 +12,7 @@ This demo application features a fully configured CKEditor 5 document editor wit
 - **Real-time collaboration** with presence indicators and live editing
 - **Track changes** and revision history
 - **Comments and annotations**
-- **Document export** to PDF and Word formats
+- **Document export** to PDF and Word formats with customizable headers and footers
 - **Advanced features** including merge fields, templates, format painter, and more
 
 ## Setup

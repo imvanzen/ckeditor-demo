@@ -143,8 +143,8 @@ export default function HeaderFooterConfigurator({
         <div className="header-footer-configurator-content">
           <div className="header-footer-disclaimer">
             <strong>⚠️ Important:</strong> Headers and footers are only visible
-            in exported files (Word/PDF), not in the editor preview. They will
-            appear when you export your document.
+            in exported Word files, not in the editor preview. They will
+            appear when you export your document to Word format.
           </div>
           <div className="header-footer-info">
             <p>

@@ -134,6 +134,7 @@ export default function App() {
   const editorRevisionHistoryRef = useRef<HTMLDivElement | null>(null);
   const editorRevisionHistoryEditorRef = useRef<HTMLDivElement | null>(null);
   const editorRevisionHistorySidebarRef = useRef<HTMLDivElement | null>(null);
+  const editorInstanceRef = useRef<DecoupledEditor | null>(null);
   const [isLayoutReady, setIsLayoutReady] = useState(false);
   const [showHeaderFooterConfig, setShowHeaderFooterConfig] = useState(false);
   const [headerFooterConfig, setHeaderFooterConfig] =
@@ -181,6 +182,31 @@ export default function App() {
 
     return () => setIsLayoutReady(false);
   }, []);
+
+  // Update editor config when headerFooterConfig changes
+  useEffect(() => {
+    if (!editorInstanceRef.current) {
+      return;
+    }
+
+    const editor = editorInstanceRef.current;
+    const exportWordConfig = editor.config.get("exportWord");
+    console.log("exportWordConfig", exportWordConfig);
+    console.log("headerFooterConfig.headers", headerFooterConfig.headers);
+    console.log("headerFooterConfig.footers", headerFooterConfig.footers);
+
+    // Update exportWord config
+    editor.config.set("exportWord", {
+      ...exportWordConfig,
+      converterOptions: {
+        ...exportWordConfig?.converterOptions,
+        ...headerFooterConfig,
+      },
+    });
+
+    const updatedExportWordConfig = editor.config.get("exportWord");
+    console.log("updatedExportWordConfig", updatedExportWordConfig);
+  }, [headerFooterConfig]);
 
   const { editorConfig } = useMemo(() => {
     if (!isLayoutReady) {
@@ -384,7 +410,6 @@ export default function App() {
             margin_left: "12mm",
             page_orientation: "portrait",
           },
-          ...headerFooterConfig,
         },
         exportWord: {
           stylesheets: [
@@ -596,6 +621,9 @@ export default function App() {
               {editorConfig && (
                 <CKEditor
                   onReady={(editor) => {
+                    // Store editor instance reference
+                    editorInstanceRef.current = editor;
+
                     editorToolbarRef.current?.appendChild(
                       editor.ui.view.toolbar.element as Node
                     );
@@ -615,6 +643,7 @@ export default function App() {
 
                     // Cleanup on destroy
                     editor.on("destroy", () => {
+                      editorInstanceRef.current = null;
                       document.removeEventListener(
                         "openHeaderFooterConfig",
                         handleOpenConfig
